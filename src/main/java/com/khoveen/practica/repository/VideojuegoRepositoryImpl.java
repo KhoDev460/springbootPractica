@@ -42,6 +42,21 @@ public class VideojuegoRepositoryImpl implements VideojuegoRepository {
         juegos.removeIf(v -> v.getId()==id); // funcion lambda
     }
 
+    // editar juego
+    @Override
+    public Videojuego editarJuego(long id, Videojuego datosNuevos) {
+        for (Videojuego g : juegos) {
+            if (g.getId() == id) {
+                g.setTitulo(datosNuevos.getTitulo());
+                g.setPrecio(datosNuevos.getPrecio());
+                g.setAge(datosNuevos.getAge());
+                g.setGenero(datosNuevos.getGenero());
+                return g;
+            }
+        }
+        return null;
+    }
+
     @Override
     public List<Videojuego>buscarPorGenero(String genero) {
         List<Videojuego> juegosMismoGenero = new ArrayList<>();

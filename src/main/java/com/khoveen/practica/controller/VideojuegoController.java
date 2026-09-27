@@ -2,6 +2,7 @@ package com.khoveen.practica.controller;
 
 import com.khoveen.practica.model.Videojuego;
 import com.khoveen.practica.service.VideojuegoService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,6 +35,12 @@ public class VideojuegoController {
     @DeleteMapping("/eliminarPorId/{id}")
     public void eliminarJuegoPorId(@PathVariable long id) {
         service.eliminarJuegoPorId(id);
+    }
+
+    @PutMapping("/editarJuego/{id}")
+    public ResponseEntity<Videojuego> editarJuego(@PathVariable long id, @RequestBody Videojuego videojuego) {
+        Videojuego actualizado = service.editarJuego(id, videojuego);
+        return ResponseEntity.ok(actualizado);
     }
 
     @GetMapping("/buscarPorGenero/{genero}")

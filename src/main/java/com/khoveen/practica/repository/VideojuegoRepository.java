@@ -7,10 +7,11 @@ import java.util.Optional;
 
 public interface VideojuegoRepository {
     Optional<Videojuego> obtenerPorId(long id);
-
     List<Videojuego> obtenerTodos();
+
     Videojuego guardarJuego(Videojuego videojuego);
     void eliminarJuegoPorId(long id);
+    Videojuego editarJuego(long id, Videojuego videojuego);
 
     List<Videojuego> buscarPorGenero(String genero);
 }

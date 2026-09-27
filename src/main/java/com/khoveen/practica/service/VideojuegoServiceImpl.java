@@ -4,8 +4,8 @@ import com.khoveen.practica.model.Videojuego;
 import com.khoveen.practica.repository.VideojuegoRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 // sin textear todavia
@@ -60,14 +60,26 @@ public class VideojuegoServiceImpl implements VideojuegoService {
     }
 
     @Override
-    public List<Videojuego> buscarPorGenero(String genero) {
-        List<Videojuego> mismosGeneros = new ArrayList<>();
-
-        for (Videojuego v : this.repository.obtenerTodos()) {
-            if (v.getGenero().equals(genero)) {
-                mismosGeneros.add(v);
-            }
+    public Videojuego editarJuego(Long id, Videojuego datosNuevos) {
+        Videojuego editado = this.repository.editarJuego(id, datosNuevos);
+        if (editado == null) {
+            throw new NoSuchElementException("No existe un juego con id " + id);
         }
-        return mismosGeneros;
+        return editado;
+    }
+
+    @Override
+    public List<Videojuego> buscarPorGenero(String genero) {
+        if(genero == null || genero.isEmpty()) {
+            throw new IllegalArgumentException("El genero no puede estar vacio");
+        }
+
+        List<Videojuego> resultado = this.repository.buscarPorGenero(genero);
+
+        if(resultado.isEmpty()) {
+            throw new IllegalArgumentException("No se encontro el genero: " + genero);
+        }
+
+        return resultado;
     }
 }
