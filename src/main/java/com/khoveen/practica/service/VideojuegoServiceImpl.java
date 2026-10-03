@@ -77,7 +77,7 @@ public class VideojuegoServiceImpl implements VideojuegoService {
         List<Videojuego> resultado = this.repository.buscarPorGenero(genero);
 
         if(resultado.isEmpty()) {
-            throw new IllegalArgumentException("No se encontro el genero: " + genero);
+            throw new GeneroNoEncontradoException(genero);
         }
 
         return resultado;
