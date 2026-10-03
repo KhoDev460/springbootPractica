@@ -70,7 +70,7 @@ public class VideojuegoServiceImpl implements VideojuegoService {
 
     @Override
     public List<Videojuego> buscarPorGenero(String genero) {
-        if(genero == null || genero.isEmpty()) {
+        if(genero == null || genero.isBlank()) {
             throw new IllegalArgumentException("El genero no puede estar vacio");
         }
 
